@@ -15,7 +15,7 @@ const confirmEmail = require('../nodemailer-config');
 
 router.get('/', checkAuthenticated,  (req,res)=>{
     console.log("Inside Router request of /")
-    res.send("Something");
+    res.send("Home Page");
     
 });
 
@@ -26,44 +26,34 @@ router.post('/signup', checkNotAuthenticated, async (req, res) => {
         token += characters[Math.floor(Math.random() * characters.length )];
     }
     const { name, email, password } = req.body;
-
+    var isSaved = false;
+    const hashedPassword = await bcrypt.hash(password, 12);
+    const user = new User({
+        name,
+        email,
+        password: hashedPassword,
+        confirmationCode: token
+    });
     User.findOne({email:email})
         .then((savedUser)=>{
             if(savedUser){
                 res.redirect('/signin');
-                console.log("HEHE")
                 // res.status(422).send("User Already Exists");
                 return ;
             }
             else{
-                try {
-                    console.log("WHY")
-                    const hashedPassword = bcrypt.hash(password, 12);
-                    const user = new User({
-                        name,
-                        email,
-                        password: hashedPassword,
-                        confirmationCode: token
-                    });
-                    user.save((err) => {
-                        if (err) {
-                            res.status(500).send({ message: err });
+                user.save((err) => {
+                    if (err) {
+                        res.status(500).send({ message: err });
                         return;
                     }
-                    // res.send({
-                    //     message: "User was registered successfully! Please check your email",
-                    // });
                     confirmEmail(
                         user.name,
                         user.email,
-                        token
-                        );
-                    });
-                } 
-                catch (error) {
-                    console.log(error);
-                    res.redirect('/signup');
-                }
+                        user.confirmationCode
+                    );
+                    res.redirect('/verifying');
+                });         
             }
         })
         .catch((err)=> console.log(err));
@@ -103,7 +93,7 @@ router.post('/signin', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/signin',
     failureFlash: false
-}))
+}));
 
 router.get("/api/auth/confirm/:code", (req, res) => {
     User.findOne({
@@ -124,11 +114,15 @@ router.get("/api/auth/confirm/:code", (req, res) => {
             res.redirect('/');
         })
         .catch((e) => console.log("error", e));
-})
+});
 
 router.get('/delete', (req,res)=>{
     res.send("Deleted");
     User.deleteMany({});
-})
+});
+
+router.get('/verifying', (req,res)=>{
+    res.send("please check your email address");
+});
 
 module.exports = router;
