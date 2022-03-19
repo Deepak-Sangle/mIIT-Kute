@@ -3,31 +3,44 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {JWT_SECURE} = require('../keys');
-const requireLogin = require('../middleware/requireLogin');
 const passport = require("passport");
 const { checkNotAuthenticated, checkAuthenticated, isVerify } = require('../middleware/authMiddleware');
 const nodemailer = require('nodemailer');
+// import { toast } from 'toast-notification-alert'
 
 const router = express.Router();
 const User = require('../models/user');
+const Event = require('../models/event');
 
 const confirmEmail = require('../nodemailer-config');
 
-router.get('/', checkAuthenticated,  (req,res)=>{
-    console.log("Inside Router request of /")
-    res.send("Home Page");
-    
+router.get('/', checkAuthenticated, async (req,res)=>{
+    let allevents = await Event.find();
+    var registeredevents = [];
+    const user_emailid = req.user.email;
+    allevents.forEach((event)=>{
+        if(event.members.includes(user_emailid)){
+            registeredevents.push({event : true});
+        }
+        else{
+            registeredevents.push({event : false});
+        }
+    });
+    res.render('homepage', {allevents, registeredevents, user_emailid});
 });
 
-router.post('/signup', checkNotAuthenticated, async (req, res) => {
+router.get('/signup', checkNotAuthenticated, (req,res)=>{
+    res.render('signup');
+});
+
+router.post('/signup', async (req, res) => {
     const characters = 'fjlkadslk9nvouhfjnwrqjofan2rfnv879524hfhhvhgjl;54[j}91!fdslkarurowvnpcroipsejo';
     let token = '';
     for (let i = 0; i < 25; i++) {
         token += characters[Math.floor(Math.random() * characters.length )];
     }
     const { name, email, password } = req.body;
-    var isSaved = false;
-    const hashedPassword = await bcrypt.hash(password, 12);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
         name,
         email,
@@ -59,40 +72,14 @@ router.post('/signup', checkNotAuthenticated, async (req, res) => {
         .catch((err)=> console.log(err));
 });
 
-// router.post('/signin', (req,res)=>{
-//     const {name, password} = req.body;
-//     if(!name || !password){
-//         res.statusCode=422;
-//         return res.status(422).send("Error: Add all fields");
-//     }
-//     User.findOne({name:name})
-//         .then((savedUser)=>{
-//             if(!savedUser){
-//                 return res.status(422).send("User Doesn't Exists");
-//             }
-//             bcrypt.compare(password,savedUser.password)
-//                 .then((doMatched)=>{
-//                     if(doMatched){
-//                         const token = jwt.sign({_id: savedUser._id}, JWT_SECURE);
-//                         console.log(token);
-//                         res.json({Success: "Sign In Succesfully"});
-//                     }
-//                     else{
-//                         res.status(422).json({Error: "Wrong Password"});
-//                     }
-//                 });
-//         })
-//         .catch((err)=> console.log(err));
-// });
-
 router.get("/signin", checkNotAuthenticated, (req, res) => {
-    res.send("signin page")
+    res.render('signin');
 });
 
 router.post('/signin', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/signin',
-    failureFlash: false
+    failureFlash: true
 }));
 
 router.get("/api/auth/confirm/:code", (req, res) => {
@@ -116,13 +103,13 @@ router.get("/api/auth/confirm/:code", (req, res) => {
         .catch((e) => console.log("error", e));
 });
 
-router.get('/delete', (req,res)=>{
-    res.send("Deleted");
-    User.deleteMany({});
-});
+router.delete('/signout', (req, res) => {
+    req.logOut();
+    res.redirect('/signin');
+})
 
 router.get('/verifying', (req,res)=>{
-    res.send("please check your email address");
+    res.render('verifying');    
 });
 
 module.exports = router;

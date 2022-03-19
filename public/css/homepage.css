@@ -1,0 +1,113 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.logo{
+    margin: 0 auto;
+}
+.navbar{
+    margin: 0 30px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.navlinks{
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.link{
+    text-decoration: none;
+    padding: 10px;
+    margin:1.5rem;
+    list-style: none;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+li > a {
+    color: black;
+}
+#logout {
+    border: none;
+    outline: none;
+    background-color: #109CF1;
+    padding: 8px;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+a {
+    text-decoration: none;
+}
+
+.box{
+    
+    border-radius: 3px;
+    margin: 40px;
+    width: fit-content;
+    padding: 50px 70px;
+    background-color: rgb(248, 248, 248);
+}
+.box:hover{
+    border: 0.5px solid rgb(46, 46, 46);
+    box-shadow: 1px 1px 6px 6px rgba(16, 156, 241,0.5);;
+}
+.ongoing{
+    text-align: center;
+    padding: 10px;
+    color: rgb(16, 156, 241);
+    font-weight: 500;
+    font-size: 2.5rem;
+}
+.events{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: fit-content;
+    justify-content: center;
+    margin: 0 auto;
+}
+.event{
+    margin: 5px;
+    font-weight: 500;
+    color: #334D6E;
+    font-size: 2.5rem;
+   
+}
+.join {
+    margin: 5px;
+    padding: 10px;
+    font-size: 1.2rem;
+    border-radius: 7px;
+    background-color: #109CF1;
+    text-align: center;
+    
+}
+.join-btn{
+    background-color: #109CF1;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.time{
+    margin: 5px;
+    text-align: center;
+    font-size: 1.3rem;
+}
+.participants{
+    color: #000000;
+    text-align: center;
+    margin: 5px;
+    font-size: 1rem;
+}

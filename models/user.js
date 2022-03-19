@@ -21,6 +21,14 @@ const userSchema = new mongoose.Schema({
     confirmationCode: { 
         type: String,
         unique: true 
+    },
+    roll: {
+        type: String,
+        required: false
+    },
+    interest: {
+        type: String,
+        required: false
     }
 });
 

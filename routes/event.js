@@ -1,10 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { SUPER_USER_ID } = require('../keys');
+const { checkAuthenticated } = require('../middleware/authMiddleware');
 const requireLogin = require('../middleware/requireLogin');
 
 const router = express.Router();
-const Event = mongoose.model("Event");
+const Event = require('../models/event');
 
 router.get('/allevents',(req,res)=>{
     Event.find()
@@ -14,18 +15,14 @@ router.get('/allevents',(req,res)=>{
         .catch((err)=> console.log(err));
 });
 
-router.get('/myevents', (req,res)=>{
-    //Need To do this
-});
-
 router.post('/createevent', requireLogin, (req,res)=>{
     const {name,location,detail,interest,startAt,endAt} = req.body;
     if(!name || !location || !detail || !interest || !startAt || !endAt) {
         return res.status(422).json({Error: "Error: Add all fields"});
     }
-    if(req.user._id!=SUPER_USER_ID){
-        return res.json({Error: "You are not Super User"});
-    }
+    // if(req.user._id!=SUPER_USER_ID){
+    //     return res.json({Error: "You are not Super User"});
+    // }
     const event = new Event({
         name,location,detail,interest,startAt,endAt
     });
@@ -37,25 +34,47 @@ router.post('/createevent', requireLogin, (req,res)=>{
 
 });
 
-router.post('/joinevent', requireLogin, (req,res)=>{
-    const {_id} = req.body;
-    Event.find({_id: _id})
-        .then((event)=>{
-            if(event[0]==undefined){
-                return res.json({Error: "Event not present"});
-            }
-            const index =event[0].members.indexOf(req.user._id);
-            if(index==-1){
-                // event[0].members.push(req.user._id);
-                res.json({Success: "Event Added"});
-            }
-            else{
-                // event[0].members.splice(req.user._id);
-                //Need to update the array
-                res.json({Success: "Event Removed"});
-            }
-        })
-        .catch((err)=> console.log(err));
+router.put('/joinevent/:id', checkAuthenticated, isAlreadyExist, async (req,res)=>{
+    const email = req.user.email;
+    const event = await Event.findByIdAndUpdate(req.params.id, {
+        $push : {
+            members : email
+        }
+    });
+    res.redirect('/');
 });
+
+router.get('/search', (req,res)=>{
+    res.render('search');
+});
+
+router.get('/myevents', checkAuthenticated, async (req,res)=>{
+    const allevents = await Event.find();
+    var events = [];
+    const user = req.user.email;
+    allevents.forEach((event)=>{
+        if(event.members.includes(user)){
+            events.push(event);
+        }
+    });
+    res.render('myevents', {events});
+});
+
+async function isAlreadyExist(req, res, next) {
+    const checkingEvent = await Event.findById(req.params.id);
+    const isExist = checkingEvent.members.includes(req.user.email);
+    if(isExist) {
+        //Need to remove the req.user.email element from event.members array 
+        const abc = await Event.findByIdAndUpdate(req.params.id, {
+            $pull : {
+                members : req.user.email
+            }
+        });
+        res.redirect('/');
+    }
+    else {
+        return next();
+    }
+}
 
 module.exports = router;

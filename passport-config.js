@@ -8,7 +8,7 @@ function initPassport(passport, getUserbyName) {
     const authenticateUser = async (name, password, done) => {
         const user = await getUserbyName(name);
         if (user == null) {
-            return done(null, false)
+            return done(null, false, { message: "No user registered with this email" })
         }
 
         try {
@@ -17,7 +17,7 @@ function initPassport(passport, getUserbyName) {
                 return done(null, user);
             }
             else {
-                return done(null, false);
+                return done(null, false, { message: "Wrong email or password" });
             }
 
         } catch (error) {

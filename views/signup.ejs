@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/signup.css">
+        <title>Register</title>
+    </head>
+    <body>
+        <section class="logo">
+            <img src="img/logo.png" alt="logo">
+        </section>
+        <br>
+        <div class="BOX">
+            <h2 class="signin">Welcome New User</h2>
+            <form action="/signup?_method=POST" method="POST">
+                <span class="user">Username</span><br>
+                <input type="text" class="userbox" id="username" name="name" required><br><br>
+                <span class="username">Email</span><br>
+                <input type="text" class="usernamebox" id="username" name="email" placeholder="IITK email id" required>
+                <br><br>
+                <span class="password">Enter a password</span> <br>
+                <input type="password" class="passbox" id="password" name="password" required> <br><br>
+                <br>
+                <button type="submit" class="submit"><span class="submit_text">Register</span></button>
+                <br><br>
+            </form>
+        </div>
+        <br><br><br><br><br>
+        <footer>
+            <span class="contact_text">Contact Us:</span>
+            <br><br>*******@iitk.ac.in
+        </footer>
+    </body>
+</html>

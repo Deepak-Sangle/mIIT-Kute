@@ -3,24 +3,36 @@ const mongoose = require('mongoose');
 
 const router = express.Router();
 const Interest = mongoose.model("Interest");
+const { checkAuthenticated } = require('../middleware/authMiddleware');
 
-const requireLogin = require('../middleware/requireLogin');
 
-router.post('/createinterest', requireLogin,(req,res)=>{
+router.post('/createinterest', checkAuthenticated, async (req,res)=>{
+    const allsuggestion = await Interest.find(); 
     const {title, body} = req.body;
-    if(!title || !body){
-        return res.status(422).json({Error: "Error: Add all fields"});
-    }
     const interest = new Interest({
         title,
         body,
-        postedBy: req.user._id
+        likes: 0
     });
     interest.save()
         .then((result)=>{
-            res.json({Success: "Interest Saved Succesfully"});
+            res.render('community', {allsuggestion});
         })
         .catch((err)=> console.log(err));
+});
+
+router.get('/community', async (req,res)=>{
+    const allsuggestion = await Interest.find(); 
+    res.render('community', {allsuggestion});
+});
+
+router.post('/liked/:id', async (req,res)=>{
+    const interst = await Interest.findByIdAndUpdate(req.params.id, {
+        $inc : {
+            likes : 1
+        }
+    });
+    res.redirect('back');
 })
 
 module.exports = router;

@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+.logo{
+    margin: 0 auto;
+}
+.navbar{
+    margin: 0 30px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: static;
+}
+.navlinks{
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.link{
+    text-decoration: none;
+    padding: 10px;
+    margin:1.5rem;
+    list-style: none;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+li > a {
+    color: black;
+}
+#logout {
+    background-color: #109CF1;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+}
+a {
+    text-decoration: none;
+}
+
+
+
+
+
+
+.myprofile{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding:15px 30px;
+    background-color: #00AEEF;
+    border-radius: 6px;
+    width: fit-content;
+    font-size: 1.2rem;
+    color: rgb(0, 0, 0);
+    gap:10px;
+
+}
+.textarea{
+    resize: none;
+    padding: 15px;
+}
+.myprofile{
+    margin: 15px;
+}
+.Suggest{
+    margin: 15px;
+}
+
+.gfeedback{
+    margin: 15px;
+}
+.submit{
+    display: block;
+    background-color: #109CF1;
+    border: 0;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    color:white;
+    border-radius: 5px;    
+}
+
+.page{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap:50px;
+}
+
+
+.pfeedback{
+    margin: 40px;
+}
+.feedbacks{
+    margin: 0 20px;
+    overflow:auto;
+}
+.feedbacks > div {
+    background-color: rgb(247, 247, 247);
+    padding: 20px;
+    margin: 10px;
+    width: 60%;
+    height: fit-content;
+}
+.logoprofile{
+    width: 34px;
+}
+
+button{
+    display: flex;
+    background-color: #109CF1;
+    margin-top: 10px;
+    border: 0;
+    padding: 7px 12px;
+    font-size: 1.0rem;
+    color:white;
+    border-radius: 5px;  
+    cursor: pointer;
+    overflow:auto;
+}
+@media screen and (max-width:800px) {
+    .page{
+        flex-wrap: wrap;
+        gap:10px
+    }
+    .myprofile{
+        justify-content: center;
+        align-content: center;
+    }
+    .gfeedback{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

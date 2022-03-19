@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel='stylesheet' href='css/signin.css'>
+    <title>Sign In</title>
+</head>
+
+<body>
+    <!-- <header>
+        <h1>mIITKute</h1>
+    </header> -->
+    <section class="logo">
+        <img src="img/logo.png" alt="logo">
+    </section>
+
+    <br>
+    <div class="BOX">
+        <h2 class="signin">Sign-In</h2>
+        <form action="/signin?_method=POST" method="POST">
+            <span class="username">Username</span><br>
+            <input type="text" class="usernamebox" id="username" name="name" required>
+            <br><br>
+            <span class="password">Password</span> <br>
+            <input type="password" class="passbox" id="password" name="password" required>
+            <% if(messages.error) { %>
+                <div class="error"><%= messages.error %></div>
+            <% } %>
+            <br> <br>
+            <section>
+                <button type="submit" class="submit"><span class="submit_text">Submit</span></button>
+            </section>
+            <br>
+            <span class="newuser">New user? </span><a href="signup" class="register"><span class="here">Register
+                    Here</span></a>
+            <br><br>
+    </div>
+    <br><br><br><br><br>
+    <footer>
+        <span class="contact_text">Contact Us:</span>
+        <br><br>*******@iitk.ac.in
+    </footer>
+</body>
+
+
+</html>

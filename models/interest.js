@@ -1,20 +1,18 @@
 const mongoose = require('mongoose');
-const {ObjectId} = mongoose.Schema.Types
 
 const interestSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
     },
-    body: {
+    body :{
         type: String,
         required: true
     },
-    postedBy: {
-        type: ObjectId,
-        ref: "User"
+    likes: {
+        type: Number,
+        required: false
     }
-
 });
 
 mongoose.model("Interest", interestSchema);
