@@ -1,0 +1,41 @@
+<%- include('./partials/header') %>
+
+        <button type="button" class="edit_button"><a href='/editprofile' class="edit_button">Edit</a></button>
+        <h1 class="ongoing ">Your Profile</h1>
+        <br>
+        <section class="Profile">
+            <div class="box">
+                <div class="name">
+                    <span class="label">Name:  <span class="Editable_info"><%= userdata.Name %></span></span>
+                    <br>
+                </div>
+                <div class="roll">
+                    <span class="label">Roll no. : <span class="Editable_info"><%= userdata.roll %></span></span>
+                    <br>
+                </div>
+                <div class="mail">
+                    <span class="label">Email Id: <span class="Editable_info"><%= userdata.email%></span></span>
+                    <br>
+                </div>
+                <div class="username">
+                    <span class="label">Username: <span class="Editable_info"><%= userdata.name%></span></span>
+                </div>
+            </div>
+            <div class="Profile_pic">
+            </div>
+            <div class="box">
+                <div class="name">
+                    <span class="label">Interested in: <span class="Editable_info"></span></span>
+                    <br>
+                </div>
+                <ul class="interests">
+                    <li class="Editable_info"><%=userdata.interest1%></li>
+                    <li class="Editable_info"><%=userdata.interest2%></li>
+                    <li class="Editable_info"><%=userdata.interest3%></li>
+                    <li class="Editable_info"><%=userdata.interest4%></li>
+                    <li class="Editable_info"><%=userdata.interest5%></li>
+                </ul>
+            </div>
+        </section>
+    </body>
+</html>

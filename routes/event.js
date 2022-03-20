@@ -34,6 +34,13 @@ router.post('/createevent', requireLogin, (req,res)=>{
 
 });
 
+router.get('/find-event', checkAuthenticated, searchFunction, (req, res) => {
+    let allevents = [];
+    let registeredevents = [];
+    let user_emailid = ""
+    res.render('search', {allevents, registeredevents, user_emailid});
+})
+
 router.put('/joinevent/:id', checkAuthenticated, isAlreadyExist, async (req,res)=>{
     const email = req.user.email;
     const event = await Event.findByIdAndUpdate(req.params.id, {
@@ -42,10 +49,6 @@ router.put('/joinevent/:id', checkAuthenticated, isAlreadyExist, async (req,res)
         }
     });
     res.redirect('/');
-});
-
-router.get('/search', (req,res)=>{
-    res.render('search');
 });
 
 router.get('/myevents', checkAuthenticated, async (req,res)=>{
@@ -75,6 +78,24 @@ async function isAlreadyExist(req, res, next) {
     else {
         return next();
     }
+}
+
+async function searchFunction(req, res, next) {
+    if(req.query.search) {
+        let allevents = await Event.find({ name: { $regex: req.query.search, $options: '$i' } });
+        var registeredevents = [];
+        const user_emailid = req.user.email;
+        allevents.forEach((event)=>{
+            if(event.members.includes(user_emailid)){
+                registeredevents.push({event : true});
+            }
+            else{
+                registeredevents.push({event : false});
+            }
+        });
+        res.render('search', {allevents, registeredevents, user_emailid});
+    }
+    else return next();
 }
 
 module.exports = router;

@@ -26,13 +26,14 @@ router.get('/community', async (req,res)=>{
     res.render('community', {allsuggestion});
 });
 
-router.post('/liked/:id', async (req,res)=>{
+router.post('/liked/:id', checkAuthenticated ,async (req,res)=>{
+    
     const interst = await Interest.findByIdAndUpdate(req.params.id, {
         $inc : {
             likes : 1
         }
     });
     res.redirect('back');
-})
+});
 
 module.exports = router;

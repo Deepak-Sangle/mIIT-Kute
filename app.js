@@ -63,7 +63,9 @@ app.use(require('./routes/auth'));
 app.use(require('./routes/interest'));
 app.use(require('./routes/event'));
 app.use(require('./routes/profile'));
-
+app.use((req,res,next)=>{
+    res.render('404')
+})
 //App Listening on port
 app.listen(PORT, ()=>{
     console.log("Server running on port", PORT)

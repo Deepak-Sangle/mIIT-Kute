@@ -1,34 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/homepage.css">
-    <title>Search Events</title>
-</head>
-<body>
-    <nav class="navbar">
-<a class="logo" href="/">
-    <img src="img/logo.png" width="200px" height="100px/"/>
-</a>
-<ul class="navlinks">
-   
-    <li class="link"><a  href="/">ONGOING EVENTS</a></li>
-    <li class="link"><a href="search">FIND EVENTS</a></li>
-    <li class="link"><a href="myevents">MY EVENTS</a></li>
-    <li class="link"><a href="community">COMMUNITY</a></li>
-    <li class="link" id="logout" ><form action="/signout?_method=DELETE" method="POST"><button id="logout">LOGOUT</button></form></li>
+<%- include('./partials/header') %>
 
-</ul>
-</nav>
 <h1 class="ongoing ">Search your events</h1>
 <br>
     <section class="events">
-        
+        <form action="/find-event" method="GET" onsubmit="return validateSearch()">
+            <input type="text" name="search" id="search">
+        </form>
     </section>
+
+    <section class="events">
+        <% allevents.forEach((event) => { %>
+            <div class="box">
+                <h1 class="event">
+                    <%= event.name %>
+                </h1>
+                <p class="time">
+                    <%= event.startAt %> - <%= event.endAt %>
+                </p>
+                <p class="time">
+                    <%= event.location %>
+                </p>
+                <p class = "participants">
+                Participants : <%= event.members.length %>
+                </p>
+                <br>
+                <% if(event.members.includes(user_emailid)){ %>
+                    <form class="join" action="/joinevent/<%=event._id%>?_method=PUT" method="POST"><button class="join-btn" type="submit">Joined</button></form>
+                <% } else{ %>
+                    <form class="join" action="/joinevent/<%=event._id%>?_method=PUT" method="POST"><button class="join-btn" type="submit">Join</button></form>
+                <% } %>
+            </div>
+        <% }) %>
+    </section>
+
     <footer>
 
     </footer>
+
+    <script>
+        function validateSearch() {
+            let searchInput = document.getElementById("search").value;
+            let searchValidInput = searchInput.trim();
+            if(searchValidInput) {
+                return true;
+            }
+            alert("Search Box is empty");
+            return false;
+        }
+    </script>
+
 </body>
 </html>

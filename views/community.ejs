@@ -1,39 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('./partials/header') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community</title>
-    <link rel="stylesheet" href="css/community.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-
-<body>
-    <nav class="navbar">
-        <a class="logo" href="/">
-            <img src="img/logo.png" width="220px" height="100px/" />
-        </a>
-        <ul class="navlinks">
-
-            <li class="link"><a href="/">ONGOING EVENTS</a></li>
-            <li class="link"><a href="search">FIND EVENTS</a></li>
-            <li class="link"><a href="myevents">MY EVENTS</a></li>
-            <li class="link"><a href="community">COMMUNITY</a></li>
-            <li class="link" id="logout">
-                <form action="/signout?_method=DELETE" method="POST"><button id="logout">LOGOUT</button></form>
-            </li>
-        </ul>
-    </nav>
 
     <section class="page">
         <div class="pfeedback">
             <div class="myprofile">
-                <div>
-                    <img class="logoprofile" src="user-solid.svg">
+                <div class="dp">
+                    <img class="logoprofile" src="/img/dp.png">
                 </div>
-                My Profile
+                <a href="/myprofile" class="button">My Profile </a>
             </div>
             <div class="Suggest">
                 Do you want to Suggest a New interest?
@@ -43,10 +17,7 @@
                     <span class="title">Interest Name</span><br>
                     <input type="text" class="title-box" name="title" required>
                     <br><br>
-
-                    <textarea class="textarea" rows="10" placeholder="Give your Feedback" cols="20" name="body">
-                    </textarea>
-
+                    <textarea class="textarea" rows="10" placeholder="Give your Feedback" cols="20" name="body"></textarea>
                     <button type="submit" class="submit"><span class="submit_text">Submit</span></button>
 
                     <!-- <input class="submit" type="submit"></input> -->
@@ -64,8 +35,7 @@
 
                     <!-- <button class="button">like</button> -->
                 </div>
-            <%})%>            
-
+            <%})%>
         </div>
 
     </section>
