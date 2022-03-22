@@ -57,7 +57,7 @@ mIIT-Kute is a social networking platform for campus janta of IITK where user ca
 
 ### Built With
 
-* [Next.js](https://nextjs.org/)
+* [Node.js](https://nodejs.org/)
 * [Passport.js](https://www.passportjs.org/)
 * [Express.js](https://expressjs.com/)
 * [EJS.js](https://ejs.co/)
