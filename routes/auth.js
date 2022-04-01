@@ -88,7 +88,6 @@ router.get("/api/auth/confirm/:code", (req, res) => {
     })
         .then((user) => {
             if (!user) {
-                console.log("!user");
                 return res.status(404).send({ message: "User Not found." });
             }
             user.status = "Active";

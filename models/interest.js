@@ -11,7 +11,9 @@ const interestSchema = new mongoose.Schema({
     },
     likes: {
         type: Number,
-        required: false
+    },
+    whoLiked: {
+        type: Array
     }
 });
 

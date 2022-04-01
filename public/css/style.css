@@ -23,6 +23,7 @@
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
+    padding: 0px;
     justify-content: space-around;
 }
 .link{
@@ -51,12 +52,15 @@ a {
 }
 
 .box{
-    
     border-radius: 3px;
     margin: 40px;
-    width: fit-content;
+    /* width: fit-content; */
     padding: 50px 70px;
     background-color: rgb(248, 248, 248);
+}
+.profile_box{
+    padding: 30px 50px !important;
+    width: 30vw;
 }
 .box:hover{
     border: 0.5px solid rgb(46, 46, 46);
@@ -80,6 +84,7 @@ a {
 .event{
     margin: 5px;
     font-weight: 500;
+    text-align: center;
     color: #334D6E;
     font-size: 2.5rem;
    
@@ -101,10 +106,19 @@ a {
     
 }
 .join-btn{
-    background-color: #109CF1;
+    background-color: #b2b1b0;
     border: none;
     font-size: 1.2rem;
+    border-radius: 5px;
+    padding: 0px 15px;
     cursor: pointer;
+}
+.joinedbtn{
+    border: none !important;
+    background-color: #109CF1 !important;
+}
+.joinbtn{
+    background-color: #b2b1b0 !important;
 }
 .time{
     margin: 5px;
@@ -127,9 +141,9 @@ a {
     padding:15px;
     background-color: #00AEEF;
     border-radius: 6px;
-    width: fit-content;
+    /* width: fit-content; */
     font-size: 1.2rem;
-    color: rgb(0, 0, 0);
+    color: black !important;
     gap: 10px;
 }
 .textarea{
@@ -139,14 +153,19 @@ a {
 .Suggest{
     margin: 15px;
 }
+.submit_text{
+    text-align: center;
+}
 .gfeedback{
     margin: 15px;
+    
 }
 .submit{
     display: block;
     background-color: #109CF1;
     border: 0;
     padding: 10px 20px;
+    margin: auto;
     font-size: 1.2rem;
     color:white;
     border-radius: 5px;    
@@ -156,12 +175,16 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
     gap:50px;
 }
 
 
 .pfeedback{
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
     margin: 40px;
 }
 .feedbacks{
@@ -175,7 +198,7 @@ a {
     height: fit-content;
 }
 .logoprofile{
-    width: 34px;
+    width: 38px;
 }
 
 .submit, .button{
@@ -191,6 +214,9 @@ a {
     cursor: pointer;
     overflow:auto;
 }
+#liked_btn{
+    background-color: #334D6E;
+}
 @media screen and (max-width:800px) {
     .page{
         flex-wrap: wrap;
@@ -205,12 +231,24 @@ a {
         justify-content: center;
         align-items: center;
     }
+    .box{
+        padding: 30px 50px !important; 
+    }
+    .edit_button{
+        margin: 0px !important;
+        position: absolute;
+        
+        top: 10px !important;
+    }
+    .profile_box{
+        width: 90vw;
+    }
 }
 
 
 .Profile{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     width: fit-content;
     justify-content: center;
@@ -230,6 +268,13 @@ a {
 .username{
     font-size: 25px;
 }
+.altbox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+}
 /* .edit{
     text-align: left;
     display: inline-block;
@@ -241,11 +286,14 @@ a {
 } */
 .edit_button{
     background-color: #109CF1;
-    padding: 10px;
+    padding: 10px 20px;
     border-radius: 5px;
     color: white;
     font-family: 'Poppins', sans-serif;
     border: 0px;
+    position: relative;
+    top: 20px;
+    left: 50px;
     margin-left: 15px;
     text-align: center;
     font-size: large;
@@ -263,10 +311,10 @@ a {
     background-repeat: no-repeat;
     background-position: center;
 }
-/* .dp{
+.dp{
     width: fit-content;
-    padding: 50px 70px;
-} */
+    margin: auto;
+}
 .interest_box{
     border-radius: 3px;
     margin: 40px;
@@ -276,6 +324,9 @@ a {
     text-align: left;
     font-size: 25px !important;
 }
+.editintrst{
+    font-size: 1.5rem !important;
+}
 .interests{
     font-size: large;
 }
@@ -283,6 +334,9 @@ a {
     font-size: 1.5rem;
     margin-top: 0px;
     margin-left: -25px;
+}
+.label{
+    font-size: 1.3rem;
 }
 .list{
     margin-left: -28px;
@@ -307,7 +361,6 @@ a {
 .Editable_info{
     color: #109CF1;
     font-size: 1.5rem;
-    padding: 10px;
 }
 #search{
     border: 2px solid black;
@@ -325,8 +378,8 @@ a {
     border: 0px;
     margin: 10px 0;
     font-size: 18px;
-    border-radius: 20px;
-
+    border-radius: 30px;
+    padding: 6px 10px;
 }
 .interest_box{
     border-radius: 3px;

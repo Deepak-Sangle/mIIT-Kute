@@ -27,10 +27,10 @@ mongoose.connect(process.env.MONGOURI);
 
 mongoose.connection.on('connected',()=>{
     console.log("Database connection On");
-})
+});
 mongoose.connection.on('error',(err)=>{
     console.log("Error Connecting: ", err);
-})
+});
 
 //Middleware
 // app.use(customMiddleware);
@@ -65,8 +65,8 @@ app.use(require('./routes/event'));
 app.use(require('./routes/profile'));
 app.use((req,res,next)=>{
     res.render('404')
-})
+});
 //App Listening on port
 app.listen(PORT, ()=>{
     console.log("Server running on port", PORT)
-})
+});

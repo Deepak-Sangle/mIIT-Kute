@@ -54,13 +54,13 @@ router.put('/joinevent/:id', checkAuthenticated, isAlreadyExist, async (req,res)
 router.get('/myevents', checkAuthenticated, async (req,res)=>{
     const allevents = await Event.find();
     var events = [];
-    const user = req.user.email;
+    const user_emailid = req.user.email;
     allevents.forEach((event)=>{
-        if(event.members.includes(user)){
+        if(event.members.includes(user_emailid)){
             events.push(event);
         }
     });
-    res.render('myevents', {events});
+    res.render('myevents', {events, user_emailid});
 });
 
 async function isAlreadyExist(req, res, next) {

@@ -19,8 +19,6 @@
                     <br><br>
                     <textarea class="textarea" rows="10" placeholder="Give your Feedback" cols="20" name="body"></textarea>
                     <button type="submit" class="submit"><span class="submit_text">Submit</span></button>
-
-                    <!-- <input class="submit" type="submit"></input> -->
                 </form>
             </div>
         </div>
@@ -31,8 +29,12 @@
                     <p> <%= interest.title %> </p>
                     <br>
                     <p> <%= interest.body %> </p>
-                    <form action="/liked/<%=interest._id%>?_method=POST" method="POST"><button class="button"">Like</button></form>
-
+                    <br>
+                    <% if(interest.whoLiked.includes(user_emailid)){    %>
+                        <form action="/liked/<%=interest._id%>?_method=PUT" method="POST"><button class="button" id="liked_btn">Liked: <%=interest.likes%></button></form>
+                    <% } else{  %>
+                        <form action="/liked/<%=interest._id%>?_method=PUT" method="POST"><button class="button" id="like_btn">Like: <%=interest.likes%></button></form>
+                    <% } %> 
                     <!-- <button class="button">like</button> -->
                 </div>
             <%})%>

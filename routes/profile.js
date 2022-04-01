@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 
-const { checkNotAuthenticated, checkAuthenticated, isVerify } = require('../middleware/authMiddleware');
+const {checkAuthenticated} = require('../middleware/authMiddleware');
 
 router.get('/myprofile', checkAuthenticated, (req,res)=>{
     const userdata = {
@@ -34,6 +34,7 @@ router.put('/editprofile', checkAuthenticated, async (req,res)=>{
     }
     const usser = await User.findByIdAndUpdate(req.user._id, {
         $set :{
+            Name: Name,
             roll : roll,
             interest1 : interest1,
             interest2 : interest2,
@@ -44,8 +45,6 @@ router.put('/editprofile', checkAuthenticated, async (req,res)=>{
     });
     res.render('profile', {userdata});
 });
-
-
 
 router.get('/editprofile', checkAuthenticated, (req,res)=>{
     const userdata = {

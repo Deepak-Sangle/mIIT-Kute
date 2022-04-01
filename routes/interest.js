@@ -16,23 +16,42 @@ router.post('/createinterest', checkAuthenticated, async (req,res)=>{
     });
     interest.save()
         .then((result)=>{
-            res.render('community', {allsuggestion});
+            // res.render('community', {allsuggestion});
+            res.redirect('/');
         })
         .catch((err)=> console.log(err));
 });
 
-router.get('/community', async (req,res)=>{
-    const allsuggestion = await Interest.find(); 
-    res.render('community', {allsuggestion});
+router.get('/community', checkAuthenticated, async (req,res)=>{
+    const allsuggestion = await Interest.find();
+    const user_emailid = req.user.email;
+    res.render('community', {allsuggestion, user_emailid});
 });
 
-router.post('/liked/:id', checkAuthenticated ,async (req,res)=>{
-    
-    const interst = await Interest.findByIdAndUpdate(req.params.id, {
-        $inc : {
-            likes : 1
-        }
-    });
+router.put('/liked/:id', checkAuthenticated ,async (req,res)=>{
+    const checkingInterest = await Interest.findById(req.params.id);
+    const user_emailid = req.user.email;
+    const isExist = checkingInterest.whoLiked.includes(user_emailid);
+    if(!isExist){
+        const interst = await Interest.findByIdAndUpdate(req.params.id, {
+            $inc : {
+                likes : 1
+            },
+            $push : {
+                whoLiked : user_emailid
+            }
+        });
+    }
+    else{
+        const interst = await Interest.findByIdAndUpdate(req.params.id, {
+            $inc : {
+                likes : -1
+            },
+            $pull : {
+                whoLiked : user_emailid
+            }
+        });
+    }
     res.redirect('back');
 });
 
