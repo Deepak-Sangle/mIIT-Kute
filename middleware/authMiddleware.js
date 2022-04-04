@@ -16,9 +16,8 @@ function checkNotAuthenticated(req, res, next) {
 
 function isVerify(req, res, next) {
     if(req.user.status!="Active") {
-        return res.status(401).send({
-            message: "Pending Account. Please Verify Your Email!",
-        });
+        res.render('verifying');
+        return ;
     }
     else next();
 }

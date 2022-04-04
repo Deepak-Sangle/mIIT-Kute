@@ -23,16 +23,20 @@
             <br><br>
             <span class="password">Password</span> <br>
             <input type="password" class="passbox" id="password" name="password" required>
+            <br>
             <% if(messages.error) { %>
                 <div class="error"><%= messages.error %></div>
-            <% } %>
-            <br> <br>
+            <% } else if(isRedirected){%>
+                <div class="error">Account already exists</div>
+            <%} else{%>
+                <div class="error invisible">hehe</div>
+            <%}%>
+            <br>
             <section>
                 <button type="submit" class="submit"><span class="submit_text">Submit</span></button>
             </section>
             <br>
-            <span class="newuser">New user? </span><a href="signup" class="register"><span class="here">Register
-                    Here</span></a>
+            <span class="newuser">New user? </span><a href="signup" class="register"><span class="here">Register Here</span></a>
             <br><br>
     </div>
     <br><br><br><br><br>

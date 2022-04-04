@@ -44,6 +44,9 @@ h2{
     color: red;
     padding-top: 5px;
 }
+#err{
+    opacity: 0;
+}
 .signin{
     text-align: center;
 }
@@ -59,6 +62,13 @@ div p{
     padding: 2px;
     height: 33px;
     cursor: pointer;
+}
+.here{
+    color:#0066c0;
+    text-decoration: none;
+}
+.register{
+    text-decoration: none;
 }
 .submit_text{
     color: white;

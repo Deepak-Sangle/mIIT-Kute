@@ -23,25 +23,28 @@ const userSchema = new mongoose.Schema({
         unique: true 
     },
     roll: {
-        type: String,
+        type: String
     },
     interest1: {
-        type: String,
+        type: String
     },
     interest2: {
-        type: String,
+        type: String
     },
     interest3: {
-        type: String,
+        type: String
     },
     interest4: {
-        type: String,
+        type: String
     },
     interest5: {
-        type: String,
+        type: String
     },
     Name: {
-        type: String,
+        type: String
+    },
+    DP :{
+        type: String
     }
 });
 

@@ -7,7 +7,13 @@
         <br>
         <br>
         <section class="Profile">
-            <div class="Profile_pic"></div>
+            <div class="Profile_pic">
+                <%if(userdata.DP){%>
+                    <img src=<%= userdata.DP %> alt="" class="profile_dp">
+                <%}else{%>
+                    <img src="img/dp.png" alt="" class="profile_dp">
+                <%}%>
+            </div>
             <div class="altbox">
                 <div class="box profile_box">
                     <div class="name">

@@ -87,6 +87,9 @@ div p{
 .register{
     text-decoration: none;
 }
+.invisible{
+    opacity: 0;
+}
 header{
     background-color: #0066c0;
     left: 0%;

@@ -17,7 +17,7 @@ function initPassport(passport, getUserbyName) {
                 return done(null, user);
             }
             else {
-                return done(null, false, { message: "Wrong email or password" });
+                return done(null, false, { message: "Wrong username or password" });
             }
 
         } catch (error) {

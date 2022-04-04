@@ -299,17 +299,19 @@ a {
     font-size: large;
     margin-right: 15px;
 }
-.Profile_pic{
-    /* text-align: center; */
-    margin: auto; 
-    border-radius: 50%;
-    border: 2px solid lightgrey;
-    background-image: url("/img/dp.png");
-    width: 150px;
-    height: 150px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+.edit_button a{
+    color: white;
+}
+a:link{
+    text-decoration: none !important;
+}
+.here{
+    text-decoration: none !important;
+}
+.profile_dp{
+    width: 200px;
+    height: 200px;
+    /* border-radius: 50%; */
 }
 .dp{
     width: fit-content;
@@ -406,15 +408,8 @@ a {
     width: fit-content;
 }
 .Profile_pic{
-    /* text-align: center; */
-    margin: auto; 
-    width: 150px;
-    height: 150px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    text-align: center;
 }
-
 .file-input{
     display: flex;
     flex-direction: column;

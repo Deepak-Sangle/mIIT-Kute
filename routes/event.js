@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { SUPER_USER_ID } = require('../keys');
-const { checkAuthenticated } = require('../middleware/authMiddleware');
+const { checkAuthenticated, isVerify } = require('../middleware/authMiddleware');
 const requireLogin = require('../middleware/requireLogin');
 
 const router = express.Router();
@@ -15,14 +15,14 @@ router.get('/allevents',(req,res)=>{
         .catch((err)=> console.log(err));
 });
 
-router.post('/createevent', requireLogin, (req,res)=>{
+router.post('/createevent', checkAuthenticated, isVerify,(req,res)=>{
     const {name,location,detail,interest,startAt,endAt} = req.body;
     if(!name || !location || !detail || !interest || !startAt || !endAt) {
         return res.status(422).json({Error: "Error: Add all fields"});
     }
-    // if(req.user._id!=SUPER_USER_ID){
-    //     return res.json({Error: "You are not Super User"});
-    // }
+    if(req.user.confirmationCode!=process.env.SECRET_ADMIN){
+        return res.json({Error: "You are not Super User"});
+    }
     const event = new Event({
         name,location,detail,interest,startAt,endAt
     });
@@ -34,14 +34,14 @@ router.post('/createevent', requireLogin, (req,res)=>{
 
 });
 
-router.get('/find-event', checkAuthenticated, searchFunction, (req, res) => {
+router.get('/find-event', checkAuthenticated, searchFunction, isVerify,(req, res) => {
     let allevents = [];
     let registeredevents = [];
     let user_emailid = ""
     res.render('search', {allevents, registeredevents, user_emailid});
 })
 
-router.put('/joinevent/:id', checkAuthenticated, isAlreadyExist, async (req,res)=>{
+router.put('/joinevent/:id', checkAuthenticated, isAlreadyExist, isVerify, async (req,res)=>{
     const email = req.user.email;
     const event = await Event.findByIdAndUpdate(req.params.id, {
         $push : {
@@ -51,7 +51,7 @@ router.put('/joinevent/:id', checkAuthenticated, isAlreadyExist, async (req,res)
     res.redirect('/');
 });
 
-router.get('/myevents', checkAuthenticated, async (req,res)=>{
+router.get('/myevents', checkAuthenticated, isVerify, async (req,res)=>{
     const allevents = await Event.find();
     var events = [];
     const user_emailid = req.user.email;

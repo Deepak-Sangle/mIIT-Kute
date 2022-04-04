@@ -2,11 +2,11 @@
 
     <h1 class="ongoing ">Edit Profile</h1>
     <br>
-    <form action="/editprofile/?_method=PUT" method="POST">
+    <form action="/editprofile/?_method=PUT" enctype="multipart/form-data" method="POST">
         <section class="Profile">
             <div class="file-input">
-                <input type="file" id="file" class="file">
                 <label for="file">Change profile pic</label>
+                <input type="file" id="file" class="file" name="dp">
             </div>
             <div class="altbox">
                 <div class="box profile_box">

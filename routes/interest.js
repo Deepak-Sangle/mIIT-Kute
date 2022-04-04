@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 
 const router = express.Router();
 const Interest = mongoose.model("Interest");
-const { checkAuthenticated } = require('../middleware/authMiddleware');
+const { checkAuthenticated, isVerify } = require('../middleware/authMiddleware');
 
 
-router.post('/createinterest', checkAuthenticated, async (req,res)=>{
+router.post('/createinterest', checkAuthenticated, isVerify, async (req,res)=>{
     const allsuggestion = await Interest.find(); 
     const {title, body} = req.body;
     const interest = new Interest({
@@ -22,13 +22,13 @@ router.post('/createinterest', checkAuthenticated, async (req,res)=>{
         .catch((err)=> console.log(err));
 });
 
-router.get('/community', checkAuthenticated, async (req,res)=>{
+router.get('/community', checkAuthenticated, isVerify, async (req,res)=>{
     const allsuggestion = await Interest.find();
     const user_emailid = req.user.email;
     res.render('community', {allsuggestion, user_emailid});
 });
 
-router.put('/liked/:id', checkAuthenticated ,async (req,res)=>{
+router.put('/liked/:id', checkAuthenticated ,isVerify, async (req,res)=>{
     const checkingInterest = await Interest.findById(req.params.id);
     const user_emailid = req.user.email;
     const isExist = checkingInterest.whoLiked.includes(user_emailid);

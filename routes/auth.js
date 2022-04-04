@@ -1,20 +1,20 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const {JWT_SECURE} = require('../keys');
 const passport = require("passport");
 const { checkNotAuthenticated, checkAuthenticated, isVerify } = require('../middleware/authMiddleware');
-const nodemailer = require('nodemailer');
-// import { toast } from 'toast-notification-alert'
-
 const router = express.Router();
 const User = require('../models/user');
 const Event = require('../models/event');
-
 const confirmEmail = require('../nodemailer-config');
 
-router.get('/', checkAuthenticated, async (req,res)=>{
+require("dotenv").config();
+
+router.get('/', checkAuthenticated, isVerify, async (req,res)=>{
+    console.log(req.user);
+    if(req.user.confirmationCode==process.env.SECRET_ADMIN){
+        res.render('secret');
+        return;
+    }
     let allevents = await Event.find();
     var registeredevents = [];
     const user_emailid = req.user.email;
@@ -50,7 +50,7 @@ router.post('/signup', async (req, res) => {
     User.findOne({email:email})
         .then((savedUser)=>{
             if(savedUser){
-                res.redirect('/signin');
+                res.render('signin',{isRedirected: true});
                 // res.status(422).send("User Already Exists");
                 return ;
             }
@@ -73,7 +73,7 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get("/signin", checkNotAuthenticated, (req, res) => {
-    res.render('signin');
+    res.render('signin',{isRedirected: false});
 });
 
 router.post('/signin', passport.authenticate('local', {
@@ -104,7 +104,7 @@ router.get("/api/auth/confirm/:code", (req, res) => {
 
 router.delete('/signout', (req, res) => {
     req.logOut();
-    res.redirect('/signin');
+    res.render('signin', {isRedirected: false});
 })
 
 router.get('/verifying', (req,res)=>{
