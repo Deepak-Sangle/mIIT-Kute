@@ -522,3 +522,7 @@ a:link{
     overflow-x: hidden;
     overflow-y: auto;
 }
+.fix7{
+    width: 20% !important;
+    margin: 10px auto;
+}

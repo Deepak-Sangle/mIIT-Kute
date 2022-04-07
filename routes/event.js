@@ -97,12 +97,18 @@ router.delete('/deleteevent/:id', checkAuthenticated,isVerify, async(req,res)=>{
 router.get('/viewevent/:id', checkAuthenticated,isVerify,async(req,res)=>{
     const event = await Event.findById(req.params.id);
     const participants = [];
-    
+    let isJoin = 0;
+    if(event.members.includes(req.user.email)) {
+        isJoin = 1;
+    }
+    else {
+        isJoin = 0;  
+    }
     for(let i=0;i<event.members.length;i++){
         const user = await User.findOne({email : event.members[i]})
         if(user !=undefined) participants.push(user.name);
     }
-    res.render('view_event', {event, participants});
+    res.render('view_event', {event, participants, isJoin : isJoin });
 });
 
 async function isAlreadyExist(req, res, next) {

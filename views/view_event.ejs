@@ -40,6 +40,18 @@
                     </div>
                 </div>
             </div>
+            <div class="fix7">
+                <% if(isJoin==1){ %>
+                    <form class="join joinedbtn" action="/joinevent/<%=event._id%>?_method=PUT" method="POST">
+                        <button class="join-btn joinedbtn" type="submit">Joined</button>
+                    </form>
+                <% } else{ %>
+                    <form class="join joinbtn" action="/joinevent/<%=event._id%>?_method=PUT" method="POST">
+                        <button class="join-btn joinbtn" type="submit">Join</button>
+                    </form>
+                <% } %>
+            </div>
+
         </div>
         
     </div>
