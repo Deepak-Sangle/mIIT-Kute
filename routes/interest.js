@@ -5,6 +5,9 @@ const router = express.Router();
 const Interest = mongoose.model("Interest");
 const { checkAuthenticated, isVerify } = require('../middleware/authMiddleware');
 
+router.get('/createinterest', checkAuthenticated, isVerify, async (req,res)=>{
+    res.render('create_interest');
+});
 
 router.post('/createinterest', checkAuthenticated, isVerify, async (req,res)=>{
     const allsuggestion = await Interest.find(); 
@@ -12,12 +15,12 @@ router.post('/createinterest', checkAuthenticated, isVerify, async (req,res)=>{
     const interest = new Interest({
         title,
         body,
-        likes: 0
+        likes: 0,
+        whoSuggested: req.user.name
     });
     interest.save()
         .then((result)=>{
-            // res.render('community', {allsuggestion});
-            res.redirect('/');
+            res.redirect('/community');
         })
         .catch((err)=> console.log(err));
 });
@@ -53,6 +56,17 @@ router.put('/liked/:id', checkAuthenticated ,isVerify, async (req,res)=>{
         });
     }
     res.redirect('back');
+});
+
+router.get('/deleteinterest', checkAuthenticated, isVerify, async (req,res)=>{
+    const allsuggestion = await Interest.find();
+    const user_emailid = req.user.email;
+    res.render('delete_interest', {allsuggestion,user_emailid});
+});
+
+router.delete('/deleteinterest/:id', checkAuthenticated,isVerify, async (req,res)=>{
+    const interest = await Interest.findByIdAndDelete(req.params.id);
+    res.redirect('/deleteinterest');
 });
 
 module.exports = router;

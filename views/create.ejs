@@ -1,0 +1,19 @@
+<%- include('./partials/header') %>
+
+<h1 class="ongoing ">Create your event</h1>
+<br>
+    <section class="events">
+        <form action="/createevent?_method=POST" method="POST">
+            <input type="text" name="name" placeholder="Name of Event" required class="create-input"><br>
+            <input type="text" name="location" placeholder="Event Location" required class="create-input"><br>
+            <textarea name="detail" cols="30" class="create-input" id="area" required placeholder="About Event" rows="10"></textarea><br>
+            <input type="text" name="interest" placeholder="Event interests" required class="create-input"><br>
+            <input type="time" name="startAt" placeholder="Event starts at" required class="create-input small">
+            <input type="time" name="endAt" placeholder="Event ends at" required class="create-input small"><br>
+            <br>
+            <button type="submit" id="findsubmitbtn" class="submit fix">Create</button>
+        </form>
+    </section>
+
+</body>
+</html>

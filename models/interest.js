@@ -14,6 +14,9 @@ const interestSchema = new mongoose.Schema({
     },
     whoLiked: {
         type: Array
+    },
+    whoSuggested:{
+        type: String
     }
 });
 

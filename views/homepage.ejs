@@ -19,12 +19,19 @@
                 </p>
                 <br>
                 <% if(event.members.includes(user_emailid)){ %>
-                    <form class="join joinedbtn" action="/joinevent/<%=event._id%>?_method=PUT" method="POST"><button
-                            class="join-btn joinedbtn" type="submit">Joined</button></form>
-                    <% } else{ %>
-                        <form class="join joinbtn" action="/joinevent/<%=event._id%>?_method=PUT" method="POST"><button
-                                class="join-btn joinbtn" type="submit">Join</button></form>
-                        <% } %>
+                    <form class="join joinedbtn" action="/joinevent/<%=event._id%>?_method=PUT" method="POST">
+                        <button class="join-btn joinedbtn" type="submit">Joined</button>
+                    </form>
+                <% } else{ %>
+                    <form class="join joinbtn" action="/joinevent/<%=event._id%>?_method=PUT" method="POST">
+                        <button class="join-btn joinbtn" type="submit">Join</button>
+                    </form>
+                <% } %>
+                <br>
+                <div style="text-align: center;">
+                    <a href="/viewevent/<%=event._id%>">View more</a>
+                </div>
+
             </div>
             <% }) %>
     </section>

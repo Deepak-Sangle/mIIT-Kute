@@ -4,7 +4,14 @@
 <br>
     <section class="events">
         <form action="/find-event" method="GET" onsubmit="return validateSearch()">
-            <input type="text" name="search" id="search">
+            <select onchange="chooseType()" name="type" class="search" id="type">
+                <option value="text">Name</option>
+                <option value="time">Starting Time</option>
+                <option value="location">Location</option>
+                <!-- <option value="number">Participants</option> -->
+            </select><br>
+            <input type="text" id="searchBox" name="search" placeholder="22-2-2022"  class="search"><br>
+            <button type="submit" id="findsubmitbtn" class="submit">Search</button>
         </form>
     </section>
 
@@ -33,11 +40,19 @@
         <% }) %>
     </section>
 
-    <footer>
+    <% if(!isAvailable){ %>
+        <div class="box">
+            Couldn't find an event? Create one...
+            <br><br>
+            <div class="myprofile">
+                <a href="/createevent" class="button"><span class="submit_text"> Create event</span> </a>
+            </div>
+        </div>
+    <%}%>
 
-    </footer>
 
     <script>
+        chooseType();
         function validateSearch() {
             let searchInput = document.getElementById("search").value;
             let searchValidInput = searchInput.trim();
@@ -46,6 +61,12 @@
             }
             alert("Search Box is empty");
             return false;
+        }
+        function chooseType(){
+            let searchBox = document.getElementById("searchBox");
+            let optionType = document.getElementById("type");
+            searchBox.type = optionType.value;
+            if(optionType.value=="text") searchBox.placeholder = "Enter name or location of event";
         }
     </script>
 

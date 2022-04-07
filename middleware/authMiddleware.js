@@ -16,7 +16,7 @@ function checkNotAuthenticated(req, res, next) {
 
 function isVerify(req, res, next) {
     if(req.user.status!="Active") {
-        res.render('verifying');
+        res.redirect('/verifying');
         return ;
     }
     else next();

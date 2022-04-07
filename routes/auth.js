@@ -9,24 +9,14 @@ const confirmEmail = require('../nodemailer-config');
 
 require("dotenv").config();
 
-router.get('/', checkAuthenticated, isVerify, async (req,res)=>{
-    console.log(req.user);
+router.get('/', checkAuthenticated, isVerify,async (req,res)=>{
     if(req.user.confirmationCode==process.env.SECRET_ADMIN){
         res.render('secret');
         return;
     }
     let allevents = await Event.find();
-    var registeredevents = [];
     const user_emailid = req.user.email;
-    allevents.forEach((event)=>{
-        if(event.members.includes(user_emailid)){
-            registeredevents.push({event : true});
-        }
-        else{
-            registeredevents.push({event : false});
-        }
-    });
-    res.render('homepage', {allevents, registeredevents, user_emailid});
+    res.render('homepage', {allevents, user_emailid});
 });
 
 router.get('/signup', checkNotAuthenticated, (req,res)=>{

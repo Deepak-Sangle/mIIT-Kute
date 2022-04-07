@@ -17,8 +17,8 @@ function sendConfirmationEmail(name, email, confirmationCode) {
       subject: "Please confirm your mIITK-KUTE account",
       html: `<h1>Email Confirmation</h1>
           <h2>Hello ${name}</h2>
-          <p>Thank you for Registering in mIIT-KUTE App. Please confirm your email by copying the following link and pasting it in your browser</p>
-          https://miit-kute.herokuapp.com/api/auth/confirm/${confirmationCode}
+          <p>Thank you for Registering in mIIT-KUTE App. Please confirm your email by opening the following link in your browser</p>
+          <a href="http://localhost:3000/api/auth/confirm/${confirmationCode}">mIIT-Kute</a>  
           </div>`,
     })
     .catch((err) => console.log(err));

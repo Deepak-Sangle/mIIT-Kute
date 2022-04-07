@@ -1,0 +1,33 @@
+<%- include('./partials/header') %>
+
+    <h1 class="ongoing ">Delete Interest</h1>
+    <br>
+    <section class="events fix3">
+        <div class="feedbacks">
+            <% allsuggestion.forEach((interest) =>{ %>
+                <div>
+                    <p> <%= interest.title %> </p>
+                    <br>
+                    <p> <%= interest.body %> </p>
+                    <br>
+                    <div class="action-btns">
+                        <% if(interest.whoLiked.includes(user_emailid)){    %>
+                            <form action="/liked/<%=interest._id%>?_method=PUT" method="POST" class="dltintrst"><button class="button dltintrst" id="liked_btn">Liked: <%=interest.likes%></button></form>
+                        <% } else{  %>
+                            <form action="/liked/<%=interest._id%>?_method=PUT" method="POST" class="dltintrst"><button class="button dltintrst" id="like_btn">Like: <%=interest.likes%></button></form>
+                        <% } %> 
+                        
+                        <form action="/deleteinterest/<%=interest._id%>?_method=DELETE" method="POST" class="dltintrst red"><button class="button dltintrst red" id="like_btn">Delete</button></form>
+                    </div>
+                                
+                    <!-- <button class="button">like</button> -->
+                </div>
+            <%})%>
+        </div>
+    </section>
+    <footer>
+
+    </footer>
+</body>
+
+</html>

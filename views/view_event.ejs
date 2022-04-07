@@ -1,0 +1,49 @@
+<%- include('./partials/header') %>
+    <h1 class="ongoing "><%=event.name%></h1>
+    <br>
+
+    <div class="my-event">
+        <div class="main-event">
+            <div class="event-img">
+                <img src="https://source.unsplash.com/random/?city,night" class="event-img-src" alt="random img"/>
+            </div>
+            <div class="each-in-event">
+                <span class=""> <%=event.detail%> </span>
+            </div>
+            <div class="event-info">
+                
+                <div class="info">
+                    <div class="each-in-event">
+                        Event Name: <span class="in-event"><%= event.name %></span>
+                    </div>
+                    <div class="each-in-event">
+                        Event Starts at <span class="in-event"><%= event.startAt %></span>
+                    </div>
+                    <div class="each-in-event">
+                        Event Ends at <span class="in-event"><%= event.endAt %></span>
+                    </div>
+                    <div class="each-in-event">
+                        Event Location: <span class="in-event"><%= event.location %></span>
+                    </div>
+                </div>
+
+                <div class="info">
+                    <div class="participants fix6">
+                        <h3 class="in-event"> Participants for <%=event.name%>  </h3>
+                        <div class="list-box">
+                            <%participants.forEach((name)=>{ %>
+                                <div class="each-in-event">
+                                    <span class="green"><%=name%></span>
+                                </div>
+                            <%})%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+</body>
+
+</html>

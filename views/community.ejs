@@ -7,35 +7,30 @@
                 <div class="dp">
                     <img class="logoprofile" src="/img/dp.png">
                 </div>
-                <a href="/myprofile" class="button">My Profile </a>
+                <a href="/myprofile" class="button ">My Profile </a>
             </div>
-            <div class="Suggest">
-                Do you want to Suggest a New interest?
+            <br>
+            <div class="myprofile">
+                <a href="/createevent" class="button ">Create event </a>
             </div>
-            <div class="gfeedback">
-                <form action="/createinterest?_method=POST" method="POST">
-                    <span class="title">Interest Name</span><br>
-                    <input type="text" class="title-box" name="title" required>
-                    <br><br>
-                    <textarea class="textarea" rows="10" placeholder="Give your Feedback" cols="20" name="body"></textarea>
-                    <button type="submit" class="submit"><span class="submit_text">Submit</span></button>
-                </form>
+            <br>
+            <div class="myprofile">
+                <a href="/createinterest" class="button ">Create interest </a>
             </div>
+            
         </div>
         <div class="feedbacks">
 
             <% allsuggestion.forEach((interest) =>{ %>
                 <div>
-                    <p> <%= interest.title %> </p>
-                    <br>
-                    <p> <%= interest.body %> </p>
-                    <br>
+                    <p> <span class="green"><%=interest.whoSuggested%></span> suggested :</p>
+                    <p> <%= interest.title %> </p><br>
+                    <p> <%= interest.body %> </p><br>
                     <% if(interest.whoLiked.includes(user_emailid)){    %>
                         <form action="/liked/<%=interest._id%>?_method=PUT" method="POST"><button class="button" id="liked_btn">Liked: <%=interest.likes%></button></form>
                     <% } else{  %>
                         <form action="/liked/<%=interest._id%>?_method=PUT" method="POST"><button class="button" id="like_btn">Like: <%=interest.likes%></button></form>
                     <% } %> 
-                    <!-- <button class="button">like</button> -->
                 </div>
             <%})%>
         </div>
