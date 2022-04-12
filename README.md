@@ -11,7 +11,7 @@
   <p align="center">
     A user friendly meet app for IITK Janta
     <br />
-    <a href="https://github.com/Deepak-Sangle/mIIT-Kute"><strong>Explore the docs »</strong></a>
+    <a href="https://miit-kute.herokuapp.com/"><strong>Explore the webapp »</strong></a>
     <br />
     <br />
     <a href="https://github.com/Deepak-Sangle/mIIT-Kute">View Demo</a>
