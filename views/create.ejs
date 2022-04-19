@@ -3,17 +3,35 @@
 <h1 class="ongoing ">Create your event</h1>
 <br>
     <section class="events">
-        <form action="/createevent?_method=POST" method="POST">
+        <form action="/createevent?_method=POST" enctype="multipart/form-data" method="POST" onsubmit="return validateTime()">
             <input type="text" name="name" placeholder="Name of Event" required class="create-input"><br>
             <input type="text" name="location" placeholder="Event Location" required class="create-input"><br>
             <textarea name="detail" cols="30" class="create-input" id="area" required placeholder="About Event" rows="10"></textarea><br>
             <input type="text" name="interest" placeholder="Event interests" required class="create-input"><br>
-            <input type="time" name="startAt" placeholder="Event starts at" required class="create-input small">
-            <input type="time" name="endAt" placeholder="Event ends at" required class="create-input small"><br>
+            <input type="time" id="start" name="startAt" placeholder="Event starts at" required class="create-input small">
+            <input type="time" id="end" name="endAt" placeholder="Event ends at" required class="create-input small"><br>
+            <br>
+            <div class="file-input">
+                <label for="event-file">Choose Image</label>
+                <input type="file" id="event-file" class="file" name="event-dp">
+            </div>
             <br>
             <button type="submit" id="findsubmitbtn" class="submit fix">Create</button>
         </form>
     </section>
+
+    <script>
+        function validateTime(){
+            const startAt = document.getElementById("start").value;
+            const endAt = document.getElementById("end").value;
+            if(startAt > endAt) {
+                alert("Starting time can not be set earlier than ending time")
+                return false;
+            }
+            return true;
+        }
+
+    </script>
 
 </body>
 </html>

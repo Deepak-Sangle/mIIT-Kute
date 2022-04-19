@@ -101,4 +101,12 @@ router.get('/verifying', (req,res)=>{
     res.render('verifying');    
 });
 
+// router.get('/forgot', checkNotAuthenticated, (req,res)=>{
+//     res.render('forgot');
+// });
+
+// router.post('/forgot', checkNotAuthenticated, (req,res)=>{
+//     res.render('verifying');
+// });
+
 module.exports = router;

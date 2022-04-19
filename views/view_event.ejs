@@ -5,7 +5,11 @@
     <div class="my-event">
         <div class="main-event">
             <div class="event-img">
-                <img src="https://source.unsplash.com/random/?city,night" class="event-img-src" alt="random img"/>
+                <%if(event.img) {%>
+                    <img src=<%= event.img %> class="event-img-src" alt="random img">
+                <% } else {  %>
+                    <img src="https://source.unsplash.com/random/?city,night" class="event-img-src" alt="random img"/>
+                <% } %>
             </div>
             <div class="each-in-event">
                 <span class=""> <%=event.detail%> </span>

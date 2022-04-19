@@ -3,10 +3,37 @@ const mongoose = require('mongoose');
 const { SUPER_USER_ID } = require('../keys');
 const { checkAuthenticated, isVerify } = require('../middleware/authMiddleware');
 const requireLogin = require('../middleware/requireLogin');
-
+const multer = require('multer');
 const router = express.Router();
 const Event = require('../models/event');
 const User = require('../models/user');
+
+const storage = multer.diskStorage({
+    destination: function(req,file,cb) {
+        cb(null, "./public/img/uploads");
+    },
+    filename: function (req,file,cb){
+        cb(null, Date.now()+file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb)=>{
+    if(file.mimetype==='image/jpeg' || file.mimetype==='image/png'){
+        cb(null, true);
+    }
+    else {
+        cb(null, false);
+    }
+}
+
+const upload = multer({
+    storage: storage,
+    limits : {
+        fieldSize : 1024*1024*10
+    },
+    fileFilter: fileFilter
+});
+
 
 router.get('/allevents',(req,res)=>{
     Event.find()
@@ -20,17 +47,25 @@ router.get('/createevent', checkAuthenticated, isVerify, (req,res)=>{
     res.render('create');
 });
 
-router.post('/createevent', checkAuthenticated, isVerify,(req,res)=>{
+router.post('/createevent', upload.single('event-dp'),checkAuthenticated, isVerify,(req,res)=>{
     const {name,location,detail,interest,startAt,endAt} = req.body;
-    const event = new Event({
-        name,location,detail,interest,startAt,endAt
-    });
+    let event;
+    if(req.file != undefined) {
+        newpath = req.file.destination.replace('./public','')+'/'+req.file.filename;
+        event = new Event({
+            name,location,detail,interest,startAt,endAt,img:newpath
+        });
+    }
+    else {
+        event = new Event({
+            name,location,detail,interest,startAt,endAt
+        });
+    }
     event.save()
         .then((result)=>{
             res.redirect('/');   
         })
         .catch((err)=> console.log(err));
-
 });
 
 router.get('/find-event', checkAuthenticated, searchFunction, isVerify,(req, res) => {
@@ -38,7 +73,7 @@ router.get('/find-event', checkAuthenticated, searchFunction, isVerify,(req, res
     let registeredevents = [];
     let user_emailid = ""
     res.render('search', {allevents, registeredevents, user_emailid, isAvailable:true});
-})
+});
 
 router.put('/joinevent/:id', checkAuthenticated, isAlreadyExist, isVerify, async (req,res)=>{
     const email = req.user.email;
@@ -69,7 +104,7 @@ router.get('/editevent', checkAuthenticated,isVerify, async(req,res)=>{
     return ;
 });
 
-router.put('/editevent/:id', checkAuthenticated,isVerify, async (req,res)=>{
+router.put('/editevent/:id', upload.single('event-dp'), checkAuthenticated,isVerify, async (req,res)=>{
     const {name,startAt,endAt,detail,location} = req.body;
     let event = await Event.findByIdAndUpdate(req.params.id, {
         $set:{
@@ -80,6 +115,14 @@ router.put('/editevent/:id', checkAuthenticated,isVerify, async (req,res)=>{
             location : location
         }
     });
+    if(req.file != undefined){
+        newpath = req.file.destination.replace('./public','')+'/'+req.file.filename
+        event = await Event.findByIdAndUpdate(req.params.id, {
+            $set: {
+                img : newpath
+            }
+        });        
+    }
     res.redirect('/editevent');
 });
 

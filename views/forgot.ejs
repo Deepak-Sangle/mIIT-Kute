@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel='stylesheet' href='css/signin.css'>
+    <title>Forgot Passowrd</title>
+</head>
+
+<body>
+    <section class="logo">
+        <img src="img/logo.png" alt="logo">
+    </section>
+
+    <br>
+    <div class="BOX">
+        <h2 class="signin">Forgot Password?</h2>
+        <form action="/forgot?_method=POST" onsubmit= "return validateEmail()" method="POST">
+            <span class="username">Email ID</span><br>
+            <input type="text" class="usernamebox" id="email" name="email" placeholder="IITK email id" required>
+            <br> <br>
+            <section>
+                <button type="submit" class="submit"><span class="submit_text">Submit</span></button>
+            </section>
+            <br>
+            <span class="newuser">Know Passowrd? </span><a href="signin" class="register"><span class="here">Register Here</span></a>
+            <br><br>
+    </div>
+    <br><br><br><br><br>
+    <footer>
+        <span class="contact_text">Contact Us:</span>
+        <br><br>*******@iitk.ac.in
+    </footer>
+
+    <script>
+        function validateEmail(){
+            const email = document.getElementById("email").value;
+            if(!email.endsWith('@iitk.ac.in')){
+                alert("Enter IITK Email ID");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+</body>
+
+</html>

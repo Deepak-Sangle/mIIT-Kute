@@ -28,6 +28,9 @@ const eventSchema = new mongoose.Schema({
     endAt: {
         type: String,
         required: true
+    },
+    img :{
+        type: String
     }
 });
 
